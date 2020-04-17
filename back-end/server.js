@@ -10,6 +10,11 @@ var bodyParser = require('body-parser')
 var server = express();
 
 server.use(bodyParser.json())
+server.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
 
 // ---- ---- ---- MONGODB Connection ---- ---- ---- ---- ---- //
 
@@ -35,16 +40,11 @@ db.once('open',function(){
 
 function query_on_everything(query)
 {
-newsapi.v2.everything({
+return newsapi.v2.everything({
     q:query,
-    language:''
+    language:'en'
 
-}).then(response =>{
-    return (response.articles);
-    }).catch(err =>{
-        console.log(err);
-        }
-    )
+})
 }
 function query_on_headlines(cntry ,cat , quer){
     let em = '';
@@ -88,12 +88,26 @@ function save_data(arr){
     // console.log(element);
  });
  clear();
+ 
+
  Article.insertMany(arr, function(err,docs){
-    //  console.log(docs);
+    var doc_arr = []
+    docs.forEach(x=>{
+        doc_arr.push(x)
+    })
+    console.log(doc_arr)
     if (err){
         console.log(err);
     }
+
  })
+
+
+//  Article.find().lean().exec(function(err,docs){
+//      console.log(docs)
+//  })
+
+
 }
 
 // Article.find({author:'PTI'} , function(err,docs){
@@ -117,19 +131,106 @@ function save_data(arr){
 
 server.post('/',function(req,res){
     var con = req.body;
-    query_on_headlines(con.country,con.category,con.query).then(response =>{
-        let x = response.articles;
+    var quer = con.category + ' ' + con.query
+    console.log(quer)
+    if(!quer){
+        // console.log("Here")
+    query_on_headlines(con.country,null,quer)
+    .then(response =>{
+        let arr = response.articles;
         // console.log(x);
-        save_data(x);
+        // save_data(x);
+        arr.forEach(element => {
+            element = condense(element);
+            console.log(element);
+         });
+        
+         clear();
+         
+    
+        Article.insertMany(arr, function(err,docs){
+        var doc_arr = []
+        if (err){
+            console.log(err);
+        }
+        else{
+        docs.forEach(x=>{
+            doc_arr.push(x)
+        })
+        console.log(doc_arr)
+        return res.end(JSON.stringify(doc_arr));
+
+        }
+    
+        })
+
     }).catch(err=>{
         console.log(err);
     })
+    }
+    else{
+        console.log("Here")
+        query_on_everything(quer)
+        .then(response =>{
+        let arr = response.articles;
+        // console.log(x);
+        // save_data(x);
+        arr.forEach(element => {
+            element = condense(element);
+            console.log(element);
+         });
+        
+         clear();
+         
     
-    Article.find().lean().exec(function(err,docs){
-        return res.end(JSON.stringify(docs));
-    })
+        Article.insertMany(arr, function(err,docs){
+        var doc_arr = []
+        if (err){
+            console.log(err);
+        }
+        else{
+        docs.forEach(x=>{
+            doc_arr.push(x)
+        })
+        console.log(doc_arr)
+        return res.end(JSON.stringify(doc_arr));
 
-    // res.sendStatus(200);
+        }
+    
+        })
+
+    }).catch(err=>{
+        console.log(err);
+    })
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 });
 
 
