@@ -69,16 +69,25 @@ function query_on_headlines(cntry ,cat , quer){
 
 
 function condense(x){
-    y ={
-        source_name : x.source.name,
-        author:x.author || x.source.name,
-        title:x.title,
-        publishedat: x.publishedAt,
-        url:x.url,
-        imageUrl:x.urlToImage,
-        description:x.description,
-        content:x.content
+    var y ={
+        source_name : "",
+        author:"" ,
+        title:"",
+        publishedat: "",
+        url:"",
+        imageUrl:"",
+        description:"",
+        content:""
 }
+y.source_name =x.source.name;
+y.author=x.author;
+y.title=x.title;
+y.publishedat= x.publishedAt;
+y.url=x.url;
+y.imageUrl=x.urlToImage;
+y.description=x.description;
+y.content=x.content;
+console.log(y)
 return y;
 }
 
@@ -138,11 +147,11 @@ server.post('/',function(req,res){
     query_on_headlines(con.country,null,quer)
     .then(response =>{
         let arr = response.articles;
-        // console.log(x);
+        // console.log(arr);
         // save_data(x);
-        arr.forEach(element => {
+        arr.forEach(ele1ment => {
             element = condense(element);
-            console.log(element);
+            // console.log(element);
          });
         
          clear();
@@ -157,8 +166,8 @@ server.post('/',function(req,res){
         docs.forEach(x=>{
             doc_arr.push(x)
         })
-        console.log(doc_arr)
-        return res.end(JSON.stringify(doc_arr));
+        // console.log(doc_arr)
+        return res.end(JSON.stringify(arr));
 
         }
     
@@ -173,11 +182,11 @@ server.post('/',function(req,res){
         query_on_everything(quer)
         .then(response =>{
         let arr = response.articles;
-        // console.log(x);
+        // console.log(arr);
         // save_data(x);
         arr.forEach(element => {
             element = condense(element);
-            console.log(element);
+            // console.log(element);
          });
         
          clear();
@@ -192,8 +201,8 @@ server.post('/',function(req,res){
         docs.forEach(x=>{
             doc_arr.push(x)
         })
-        console.log(doc_arr)
-        return res.end(JSON.stringify(doc_arr));
+        // console.log(doc_arr)
+        return res.end(JSON.stringify(arr));
 
         }
     
@@ -203,34 +212,6 @@ server.post('/',function(req,res){
         console.log(err);
     })
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 });
 
 
