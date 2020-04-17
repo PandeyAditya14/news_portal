@@ -1,0 +1,28 @@
+{
+  "name": "news_portal",
+  "version": "1.0.0",
+  "description": "",
+  "main": "mongo_test.js",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.9",
+    "newsapi": "^2.4.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PandeyAditya14/news_portal.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PandeyAditya14/news_portal/issues"
+  },
+  "homepage": "https://github.com/PandeyAditya14/news_portal#readme"
+}
