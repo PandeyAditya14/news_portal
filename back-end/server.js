@@ -115,7 +115,7 @@ function save_data(arr){
 //   ;
 // };
 
-server.get('/',function(req,res){
+server.post('/',function(req,res){
     var con = req.body;
     query_on_headlines(con.country,con.category,con.query).then(response =>{
         let x = response.articles;
