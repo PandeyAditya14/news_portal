@@ -30,6 +30,9 @@
 .wrapper{
   background-image: linear-gradient(black,white);
 }
+.wrapperCardList{
+  padding: 3rem;
+}
 
 @keyframes App-logo-spin {
   from {

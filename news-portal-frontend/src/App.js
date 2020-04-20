@@ -6,6 +6,7 @@ import Axios from 'axios';
 import NavbarComponent from './components/navbar/navbar';
 import CardComponent from './components/card/card';
 // import { render } from 'react-dom';
+import Footer from './components/footer/footer'
 // import { Card , Button } from 'react-bootstrap';
 
 class App extends React.Component{
@@ -52,8 +53,10 @@ class App extends React.Component{
   return (
   <div className='wrapper'>
       <NavbarComponent parentCallback={this.callBack} fromParent={this.state}></NavbarComponent>
-      <CardComponent renderList={this.state.data}></CardComponent>
-      
+      <div className='wrapperCardList'>
+        <CardComponent renderList={this.state.data}></CardComponent>
+      </div>
+      <Footer></Footer>
   </div>
 
 )
