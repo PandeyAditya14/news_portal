@@ -50,7 +50,7 @@ class App extends React.Component{
 
   render(){
   return (
-  <div>
+  <div className='wrapper'>
       <NavbarComponent parentCallback={this.callBack} fromParent={this.state}></NavbarComponent>
       <CardComponent renderList={this.state.data}></CardComponent>
       

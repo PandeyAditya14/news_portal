@@ -42,8 +42,8 @@ function query_on_everything(query)
 {
 return newsapi.v2.everything({
     q:query,
-    language:'en'
-
+    language:'en',
+    sortBy:'popularity',
 })
 }
 function query_on_headlines(cntry ,cat , quer){
@@ -56,7 +56,9 @@ function query_on_headlines(cntry ,cat , quer){
         country:cntry,
         category:cat,
         q:quer,
-        language:'en'
+        language:'en',
+        pageSize:40,
+        page:2
     })
 }
 // console.log(query_on_headlines());
@@ -144,7 +146,7 @@ server.post('/',function(req,res){
     console.log(quer)
     if(!quer){
         // console.log("Here")
-    query_on_headlines(con.country,null,quer)
+    query_on_everything('science')
     .then(response =>{
         let arr = response.articles;
         // console.log(arr);
