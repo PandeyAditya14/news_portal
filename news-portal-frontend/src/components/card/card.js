@@ -8,7 +8,7 @@ import './card.css';
 
 const CardComponent = ({ renderList }) => {
 
-  renderList.splice(1, 1)
+  renderList.splice(14, 1)
 
   const cardList = renderList.map(card => (
     <a className="CardWrapper" href={card.url} style={{ textDecoration: 'none', color: 'Black' }} >
@@ -21,7 +21,7 @@ const CardComponent = ({ renderList }) => {
           </Card.Text>
         </Card.Body>
         <Card.Footer>
-          <small className="text-muted">Published on:{Date(card.publishedAt).toString()}</small>
+          <small className="text-muted">Published on: {Date(card.publishedAt).toString()}</small>
         </Card.Footer>
       </Card>
     </a>

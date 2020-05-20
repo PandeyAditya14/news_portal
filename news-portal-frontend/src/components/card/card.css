@@ -1,3 +1,6 @@
 .CardWrapper{
     padding: 2rem;
 }
+.text-muted{
+    color: white!important;
+}

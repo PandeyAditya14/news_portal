@@ -27,7 +27,7 @@ class App extends React.Component{
     var cat = this.state.category;
     var q = this.state.query;
     // console.log(this.state);
-    var data = await Axios.post('http://localhost:8080/', {country : cou,category: cat,query:q})
+    var data = await Axios.post('http://192.168.1.81:8080/', {country : cou,category: cat,query:q})
     var res = await data.data
     this.setState({data:res},()=>{
       console.log(this.state.data)
@@ -50,17 +50,17 @@ class App extends React.Component{
   }
 
   render(){
-  return (
-  <div className='wrapper'>
-      <NavbarComponent parentCallback={this.callBack} fromParent={this.state}></NavbarComponent>
-      <div className='wrapperCardList'>
-        <CardComponent renderList={this.state.data}></CardComponent>
+    return(
+      <div className='wrapper'>
+          <NavbarComponent parentCallback={this.callBack} fromParent={this.state}></NavbarComponent>
+          <div className='wrapperCardList'>
+            <CardComponent renderList={this.state.data}></CardComponent>
+          </div>
+          <Footer></Footer>
       </div>
-      <Footer></Footer>
-  </div>
 
-)
-}
+    )
+  }
 }
 
 export default App;
